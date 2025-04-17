@@ -1,113 +1,51 @@
+/* style.css */
+
+/* Ensure smooth scrolling behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Base styles for elements if needed beyond Tailwind */
 body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease; /* For theme toggle */
+    /* Font is set via Tailwind config in HTML head */
+    @apply transition-colors duration-300; /* Apply Tailwind class for transition */
 }
 
-body.dark-theme {
-    background-color: #1a1a1a;
-    color: #f4f4f4;
+/* Define animations (Tailwind config references these) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-body.dark-theme h2,
-body.dark-theme .hero {
-    color: #fff;
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-body.dark-theme .about,
-body.dark-theme .skills,
-body.dark-theme .experience,
-body.dark-theme .contact,
-body.dark-theme footer {
-    background-color: #222;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-    border-color: #333;
+
+@keyframes progressBar {
+    from {
+        width: 0%;
+    }
+    to {
+        /* The width will be set dynamically via the --skill-level variable */
+        width: var(--skill-level);
+    }
 }
 
-body.dark-theme .skill-list li {
-    background-color: #333;
-    color: #eee;
-}
-
-body.dark-theme .experience-item {
-    border-color: #444;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    padding: 1rem 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-#theme-toggle {
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#theme-toggle:hover {
-    background-color: white;
-    color: #333;
-}
-
-body.dark-theme #theme-toggle {
-    color: #333;
-    border-color: #333;
-}
-
-body.dark-theme #theme-toggle:hover {
-    background-color: #333;
-    color: white;
-}
-
-.hero {
-    background-color: #555;
-    color: white;
-    text-align: center;
-    padding: 5rem 20px;
-}
-
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-    overflow: hidden; /* For typing effect */
-    white-space: nowrap;
-    border-right: .15em solid orange; /* Cursor effect */
-    animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
-}
-
+/* Typing animation keyframes */
 @keyframes typing {
     from { width: 0 }
     to { width: 100% }
@@ -115,149 +53,92 @@ body.dark-theme #theme-toggle:hover {
 
 @keyframes blink-caret {
     from, to { border-color: transparent }
-    50% { border-color: orange; }
+    50% { border-color: currentColor; } /* Use text color */
 }
 
-.hero p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
 
-.button {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-.about, .skills, .experience, .contact {
-    padding: 2rem 20px;
-    max-width: 960px;
-    margin: 20px auto;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+/* Apply base animation state for elements that will animate on scroll */
+.animate-on-scroll {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    /* Add other initial states if needed, e.g., transform: translateY(20px); */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.fade-in.active {
+/* State when element is intersecting/visible */
+.animate-on-scroll.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    /* Add final animation state, e.g., transform: translateY(0); */
+    /* Use Tailwind animation classes like 'animate-fade-in-up' directly on elements instead */
 }
 
-h2 {
-    color: #333;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+
+/* Style for the skill bar animation */
+.skill-bar {
+    transition: width 1.5s ease-out; /* Control animation speed */
+    /* Animation will be triggered by adding a class or directly setting width in JS */
 }
 
-.skill-list {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+/* Style for the typing cursor effect (applied via Tailwind in HTML) */
+.hero-subtitle {
+    /* border-right: .15em solid; /* Set color via text color */
+    /* animation defined in Tailwind config */
+    /* Ensure inline-block or block for width animation */
+    display: inline-block;
+    vertical-align: bottom; /* Align baseline */
 }
 
-.skill-list li {
-    background-color: #eee;
-    padding: 15px;
-    border-radius: 5px;
-    text-align: center;
+/* Style for section titles (Optional: add underline/accent) */
+.section-title {
     position: relative;
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: inline-block;
+    padding-bottom: 0.5rem; /* Space for the underline */
 }
 
-.skill-list li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.skill-list li::before {
+.section-title::after {
     content: '';
     position: absolute;
-    left: 0;
     bottom: 0;
-    height: 5px;
-    background-color: #007bff;
-    width: 0%;
-    transition: width 0.3s ease-out;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; /* Width of the underline */
+    height: 3px; /* Thickness of the underline */
+    @apply bg-primary-light dark:bg-primary-dark; /* Use Tailwind colors */
+    border-radius: 2px;
 }
 
-.skill-list li.animate-skill::before {
-    width: var(--skill-level); /* Set in JavaScript */
+/* Header shadow visibility on scroll */
+#main-header.scrolled {
+    @apply shadow-lg; /* Add more shadow when scrolled */
 }
 
-.experience-item {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+/* Mobile Menu Transition (Example) */
+#mobile-menu {
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
 }
 
-.experience-item h3 {
-    margin-top: 0;
-    color: #555;
+#mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction when open */
 }
 
-.experience-date {
-    color: #777;
-    margin-bottom: 10px;
+
+/* Custom scrollbar (Optional - Webkit browsers) */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-.experience-item ul {
-    list-style: disc;
-    padding-left: 20px;
+::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 20px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+::-webkit-scrollbar-thumb {
+    @apply bg-primary-light/50 dark:bg-primary-dark/50 rounded-full;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav ul {
-        text-align: center;
-    }
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #theme-toggle {
-        margin-top: 10px;
-    }
-
-    .hero {
-        padding: 3rem 20px;
-    }
-
-    .hero h1 {
-        font-size: 2.5em;
-    }
-
-    .skill-list {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-light/70 dark:bg-primary-dark/70;
 }
