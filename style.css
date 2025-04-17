@@ -34,16 +34,7 @@ body {
     }
 }
 
-
-@keyframes progressBar {
-    from {
-        width: 0%;
-    }
-    to {
-        /* The width will be set dynamically via the --skill-level variable */
-        width: var(--skill-level);
-    }
-}
+/* Removed unused @keyframes progressBar rule */
 
 /* Typing animation keyframes */
 @keyframes typing {

@@ -163,7 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     animatedElements.forEach(el => observer.observe(el));
 
-    // --- Footer Current Year ---
+    // --- Footer Current Year ----------
+    //testing
+    //testing
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
